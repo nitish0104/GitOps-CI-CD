@@ -1,10 +1,5 @@
-FROM python:3.8-slim-buster
-
+FROM python:3.8
 WORKDIR /app
-
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-
-COPY . .
-
-CMD ["python3", "app.py"]
+COPY . /app
+RUN pip --no-cache-dir install -r requirements.txt
+CMD ["python3", "main.py"]
