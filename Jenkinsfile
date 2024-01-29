@@ -4,6 +4,7 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
+        // DOCKER_HUB_CREDENTIALS = credentials('Docker') // Use the ID you set in Jenkins
         // K8S_MANIFESTS_REPO_CRED_ID = 'github'
     }
     
@@ -23,10 +24,23 @@ pipeline {
         stage('Build Docker'){
             steps{
                 script{
-                    sh '''
-                    echo 'Buid Docker Image'
-                    docker build -t nitish0104/todo:${BUILD_NUMBER} .
-                    '''
+                        sh '''
+                        echo 'Buid Docker Image'
+                        docker build -t nitish0104/todo:${BUILD_NUMBER} .
+                        '''
+                    }
+            }
+        }
+        stage('Push the artifacts') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'Docker', passwordVariable: 'Nitish@2002', usernameVariable: 'nitish0104')]) {
+                sh '''
+                echo 'Push to Repo'
+                docker login -u nitish0104 -p Nitish@2002
+                docker push nitish0104/todo:${BUILD_NUMBER}
+                '''
+                    }
                 }
             }
         }
@@ -34,6 +48,7 @@ pipeline {
         stage('Push the artifacts'){
            steps{
                 script{
+                    
                     sh '''
                     echo 'Push to Repo'
                     docker push nitish0104/todo:${BUILD_NUMBER}
