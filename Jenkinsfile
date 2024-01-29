@@ -45,20 +45,10 @@ pipeline {
             }
         }
 
-        stage('Push the artifacts'){
-           steps{
-                script{
-                    
-                    sh '''
-                    echo 'Push to Repo'
-                    docker push nitish0104/todo:${BUILD_NUMBER}
-                    '''
-                }
-            }
-        }
+        
         stage("Done"){
             steps{
-                echo "Done CI pipeline"
+                echo "Done CI pipeline Done"
             }
             
         }
