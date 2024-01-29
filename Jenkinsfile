@@ -33,33 +33,16 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                // Load Docker credentials from Jenkins credentials store
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'Docker', usernameVariable: 'nitish0104', passwordVariable: 'Nitish@2002']]) {
-                        def dockerRegistry = 'https://hub.docker.com/repository/docker/nitish0104/todo'
-                        def dockerImage = docker.image("nitish0104/todo:${BUILD_NUMBER}")
-
-                // Authenticate and push the Docker image
-                        docker.withRegistry(dockerRegistry, "nitish0104:Nitish@2002") {
-                            dockerImage.push()
-                        }
-                    }
+        stage('Push the artifacts'){
+           steps{
+                script{
+                    sh '''
+                    echo 'Push to Repo'
+                    docker push nitish0104/todo:${BUILD_NUMBER}
+                    '''
                 }
             }
         }
-
-        // stage('Push the artifacts'){
-        //    steps{
-        //         script{
-        //             sh '''
-        //             echo 'Push to Repo'
-        //             docker push nitish0104/todo:${BUILD_NUMBER}
-        //             '''
-        //         }
-        //     }
-        // }
 
         
         stage("Done"){
