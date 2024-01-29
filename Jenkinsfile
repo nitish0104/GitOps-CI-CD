@@ -33,19 +33,13 @@ pipeline {
             }
         }
 
-        stage('Push the artifacts') {
-            steps {
-                script {
-                        withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_CREDENTIALS', passwordVariable: 'Nitish@2002', usernameVariable: 'nitish0104')]) {
-                            sh '''
-                            echo 'Push to Repo'
-                            echo 'Debug: Checking Docker Version'
-                            docker version
-                            docker login -u nitish0104 -p Nitish@2002
-                            docker push nitish0104/todo:${BUILD_NUMBER}
-                            echo 'Docker Push Completed'
-                            '''
-                    }
+        stage('Push the artifacts'){
+           steps{
+                script{
+                    sh '''
+                    echo 'Push to Repo'
+                    docker push nitish0104/todo:${BUILD_NUMBER}
+                    '''
                 }
             }
         }
