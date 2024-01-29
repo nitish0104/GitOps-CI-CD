@@ -11,3 +11,15 @@ spec:
       port: 80
       targetPort: 5000
       
+
+
+# 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
+
+#  https://github.com/settings/tokens
+
+# Argocd for private repo
+
+# kubectl create secret generic argocd-repo-secret \
+#   --from-literal=github.token=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 \
+#   -n argocd
+# secret/argocd-repo-secret created
