@@ -27,6 +27,7 @@ pipeline {
                         sh '''
                         echo 'Buid Docker Image'
                         docker build -t nitish0104/todo:${BUILD_NUMBER} .
+                        echo 'Docker Build Completed'
                         '''
                     }
             }
@@ -37,8 +38,12 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Docker', passwordVariable: 'Nitish@2002', usernameVariable: 'nitish0104')]) {
                 sh '''
                 echo 'Push to Repo'
+                echo 'Debug: Checking Docker Version'
+                docker version
                 docker login -u nitish0104 -p Nitish@2002
                 docker push nitish0104/todo:${BUILD_NUMBER}
+                echo 'Docker Push Completed'
+
                 '''
                     }
                 }
