@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // Checkout source code (TODO app) from the repository
-                    git credentialsId: 'github', 
+                    git credentialsId: 'jenkins-github', 
                         url: 'https://github.com/nitish0104/TODO-CI-CD.git'
                         branch: 'master'
                 }
@@ -65,7 +65,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'Shradha@2002#', usernameVariable: 'nitish0104')]) {
+                    withCredentials([usernamePassword(credentialsId: 'jenkins-github', passwordVariable: 'Shradha@2002#', usernameVariable: 'nitish0104')]) {
                         sh '''
                         cat Deploy.yaml
                         sed -i '' "s/v1/${BUILD_NUMBER}/g" Deploy.yaml
