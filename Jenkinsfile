@@ -5,7 +5,7 @@ pipeline {
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
         DOCKER_USERNAME = "${nitish0104}"
-        DOCKER_PASSWORD = "${Nitish@2002}"
+        DOCKER_PASSWORD = "${dckr_pat_huS2BAEJojwbM9mXjRnTk4eOHVI}"
         docker-hub-credentials = "${Docker-jenkins}"
 
         // K8S_MANIFESTS_REPO_CRED_ID = 'github'
