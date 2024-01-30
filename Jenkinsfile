@@ -46,7 +46,8 @@ pipeline {
                         echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin docker.io
                         echo 'Push to Docker  Repo'
                         docker push nitish0104/todo:${BUILD_NUMBER}
-                    }    '''
+                        '''
+                    }
                 }
             }
         }
