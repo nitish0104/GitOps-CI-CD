@@ -76,7 +76,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'jenkins-github', passwordVariable: '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', usernameVariable: 'nitish0104')]) {
                         sh '''
                         cat Deploy.yaml
-                        sed -i "s|9|${BUILD_NUMBER}|g" Deploy.yaml
+                        sed -i "s|8|${BUILD_NUMBER}|g" Deploy.yaml
                         cat Deploy.yaml
                         git config --global user.email "nitishdalvi1@gmail.com"
                         git config --global user.name "nitish0104"
