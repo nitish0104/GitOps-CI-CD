@@ -4,7 +4,7 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        DOCKER_HUB_CREDENTIALS = credentials('Docker') // Use the ID you set in Jenkins
+        
         // K8S_MANIFESTS_REPO_CRED_ID = 'github'
     }
     
