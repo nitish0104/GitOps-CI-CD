@@ -54,7 +54,7 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-                git credentialsId: 'github', 
+                git credentialsId: 'jenkins-github', 
                 url: 'https://github.com/nitish0104/ToDo-mainfest-repo.git',
                 branch: 'master'
             }
