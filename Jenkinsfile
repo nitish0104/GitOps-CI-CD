@@ -73,7 +73,6 @@ pipeline {
             steps {
                 script{
                     withCredentials([usernamePassword(credentialsId: 'jenkins-github', passwordVariable: 'Shradha@2002#', usernameVariable: 'nitish0104')]) {
-                        def encodedPassword = URLEncoder.encode(env.Shradha@2002#, 'UTF-8')
                         sh '''
                         cat Deploy.yaml
                         sed -i "s|9|${BUILD_NUMBER}|g" Deploy.yaml
