@@ -83,7 +83,7 @@ pipeline {
                         git add Deploy.yaml
                         git commit -m 'Updated the Deploy yaml | Jenkins Pipeline'
                         git remote -v
-                        git push "https://${env.nitish0104}:${encodedPassword}@github.com/nitish0104/ToDo-mainfest-repo.git" HEAD:master
+                        git push origin master
                         '''                        
                     }
                 }
