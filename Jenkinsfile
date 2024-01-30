@@ -6,7 +6,7 @@ pipeline {
         IMAGE_TAG = "${BUILD_NUMBER}"
         DOCKER_USERNAME = "${nitish0104}"
         DOCKER_PASSWORD = "${dckr_pat_huS2BAEJojwbM9mXjRnTk4eOHVI}"
-        docker-hub-credentials = "${Docker-jenkins}"
+        Docker_Credentials = "${Docker-jenkins}"
 
         // K8S_MANIFESTS_REPO_CRED_ID = 'github'
     }
@@ -39,7 +39,7 @@ pipeline {
         stage('Push the artifacts'){
            steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'Docker_Credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         echo 'Logging into Docker'
                         docker login
