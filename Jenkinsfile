@@ -7,9 +7,9 @@ pipeline {
         registryCredential = 'Docker-jenkins'
         GIT_REPO_URL = 'https://github.com/nitish0104/ToDo-mainfest-repo.git'
         GIT_CREDENTIAL_ID = 'jenkins-github'
-        GIT_USERNAME = 'nitish0104'
         GIT_TOKEN = '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'  // Replace with the token you generated
         GIT_EMAIL = 'nitishdalvi1@gmail.com'
+        GIT_NAME = 'nitish0104'
     }
     
     stages {
@@ -79,10 +79,10 @@ pipeline {
                 script{
                     // Configure Git identity
                     sh "git config --global user.email '${GIT_EMAIL}'"
-                    sh "git config --global user.name '${GIT_USERNAME}'" 
+                    sh "git config --global user.name '${GIT_NAME}'"
 
                     // Clone repository
-                    sh "git clone -b master ${GIT_REPO_URL} myrepo"
+                    sh "git clone -b master https://${GIT_TOKEN}@${GIT_REPO_URL} myrepo"
                     dir('myrepo') {
                         // Update Deploy.yaml
                         sh '''
