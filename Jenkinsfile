@@ -82,7 +82,7 @@ pipeline {
                     sh "git config --global user.name '${GIT_NAME}'"
 
                     // Clone repository
-                    sh "git clone -b master https://${GIT_TOKEN}@${GIT_REPO_URL} myrepo"
+                    sh "git clone -b master https://${GIT_USERNAME}:${GIT_TOKEN}@${GIT_REPO_URL} myrepo"
                     dir('myrepo') {
                         // Update Deploy.yaml
                         sh '''
