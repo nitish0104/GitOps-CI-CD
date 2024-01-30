@@ -37,6 +37,9 @@ pipeline {
            steps{
                 script{
                     sh '''
+                    echo 'Logging into Docker'
+                    docker login
+                    docker login -u nitish0104 -p Nitish@2002 docker.io
                     echo 'Push to Repo'
                     docker push nitish0104/todo:${BUILD_NUMBER}
                     '''
