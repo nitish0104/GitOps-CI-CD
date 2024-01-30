@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Push the artifacts'){
+        stage('Push Docker image to dockerHub'){
            steps{
                 script{
                     docker.withRegistry('', registryCredential) {
@@ -49,13 +49,18 @@ pipeline {
         }
 
         
-        stage("Done"){
+        stage("CI Done"){
             steps{
                 echo "Done CI pipeline Done"
             }
             
         }
-        
+        stage("CD "){
+            steps{
+                echo "CD  pipeline Start "
+            }
+            
+        }
         stage('Checkout K8S manifest SCM'){
             steps {
                 git credentialsId: 'jenkins-github', 
@@ -63,12 +68,7 @@ pipeline {
                 branch: 'master'
             }
         }
-        stage("Done2"){
-            steps{
-                echo "Done CD pipeline"
-            }
-            
-        }
+        
         
         stage('Update K8S manifest & push to Repo'){
             steps {

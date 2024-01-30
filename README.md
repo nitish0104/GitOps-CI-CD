@@ -38,4 +38,7 @@ secret/argocd-repo-secret created
 
 **Note** : Check the version of docker image present in Deploy.yaml file and that version must be add on jenkins file <sed -i "s|8|${BUILD_NUMBER}|g" Deploy.yaml> .Here Replace 8 with Deploy.yaml docker image version 
     
+## 5. Final Output
+
+![CICD](./images/jenkins-todo-pipeline.png)
 
