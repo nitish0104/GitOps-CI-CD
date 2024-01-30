@@ -4,7 +4,10 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        
+        DOCKER_USERNAME = "${nitish0104}"
+        DOCKER_PASSWORD = "${Nitish@2002}"
+        docker-hub-credentials = "${Docker-jenkins}"
+
         // K8S_MANIFESTS_REPO_CRED_ID = 'github'
     }
     
@@ -36,13 +39,14 @@ pipeline {
         stage('Push the artifacts'){
            steps{
                 script{
-                    sh '''
-                    echo 'Logging into Docker'
-                    docker login
-                    docker login -u nitish0104 -p Nitish@2002 docker.io
-                    echo 'Push to Docker  Repo'
-                    docker push nitish0104/todo:${BUILD_NUMBER}
-                    '''
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh '''
+                        echo 'Logging into Docker'
+                        docker login
+                        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin docker.io
+                        echo 'Push to Docker  Repo'
+                        docker push nitish0104/todo:${BUILD_NUMBER}
+                    }    '''
                 }
             }
         }
