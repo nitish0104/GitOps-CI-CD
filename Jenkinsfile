@@ -5,7 +5,7 @@ pipeline {
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
         registryCredential = 'Docker-jenkins'
-        GITHUB_TOKEN = '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'
+        GITHUB_TOKEN = "${jenkins-github}"
     }
     
     stages {
@@ -73,7 +73,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'jenkins-github', passwordVariable: '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', usernameVariable: 'nitish0104')]) {
+                    withCredentials([usernamePassword(credentialsId: 'jenkins-github', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'nitish0104')]) {
                         sh '''
                         cat Deploy.yaml
                         sed -i "s|11|${BUILD_NUMBER}|g" Deploy.yaml
