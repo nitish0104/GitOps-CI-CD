@@ -1,5 +1,5 @@
 # Complete CI-CD Pipeline of TODO app
-
+![workflow](https://media.licdn.com/dms/image/D4D22AQFFx1UpdWavKg/feedshare-shrink_2048_1536/0/1716032180954?e=1720051200&v=beta&t=GOdYOK0QsK_rlsLKEvqudJY4Df7FZEB9qQ9rvlwkMYY)
 
 ## 1. Jenkins and minikube Installation 
 https://github.com/nitish0104/scripts
