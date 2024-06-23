@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // Checkout source code (TODO app) from the repository
-                    git credentialsId: 'jenkins-github', 
+                    git credentialsId: 'Github', 
                         url: 'https://github.com/nitish0104/GitOps-CI-CD.git'
                         branch: 'master'
                 }
@@ -65,7 +65,7 @@ pipeline {
         }
         stage('Checkout K8S manifest SCM'){
             steps {
-                git credentialsId: 'jenkins-github', 
+                git credentialsId: 'Github', 
                 url: 'https://github.com/nitish0104/GitOps-Mainfest-Repo.git',
                 branch: 'master'
             }
