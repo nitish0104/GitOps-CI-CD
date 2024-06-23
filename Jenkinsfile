@@ -28,7 +28,7 @@ pipeline {
                 script{
                         sh '''
                         echo 'Buid Docker Image'
-                        docker build -t nitish0104/todo:${BUILD_NUMBER} .
+                        sudo docker build -t nitish0104/todo:${BUILD_NUMBER} .
                         echo 'Docker Build Completed'
                         '''
                     }
@@ -41,9 +41,9 @@ pipeline {
                     docker.withRegistry('', registryCredential) {
                         sh '''
                         echo 'Logging into Docker'
-                        docker login
+                        sudo docker login
                         echo 'Push to Docker  Repo'
-                        docker push nitish0104/todo:${BUILD_NUMBER}
+                        sudo docker push nitish0104/todo:${BUILD_NUMBER}
                         '''
                     }
                 }
