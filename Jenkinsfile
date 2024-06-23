@@ -4,8 +4,8 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        registryCredential = 'Docker-jenkins'
-        GITHUB_TOKEN = "${jenkins-github}"
+        registryCredential = 'Docker'
+        GITHUB_TOKEN = "${Github}"
     }
     
     stages {
@@ -14,8 +14,8 @@ pipeline {
             steps {
                 script {
                     // Checkout source code (TODO app) from the repository
-                    git credentialsId: 'jenkins-github', 
-                        url: 'https://github.com/nitish0104/TODO-CI-CD.git'
+                    git credentialsId: 'Github', 
+                        url: 'https://github.com/nitish0104/GitOps-CI-CD.git'
                         branch: 'master'
                 }
             }
@@ -63,8 +63,8 @@ pipeline {
         }
         stage('Checkout K8S manifest SCM'){
             steps {
-                git credentialsId: 'jenkins-github', 
-                url: 'https://github.com/nitish0104/ToDo-mainfest-repo.git',
+                git credentialsId: 'Github', 
+                url: 'https://github.com/nitish0104/GitOps-Mainfest-Repo.git',
                 branch: 'master'
             }
         }
@@ -73,7 +73,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'jenkins-github', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'nitish0104')]) {
+                    withCredentials([usernamePassword(credentialsId: 'Github', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'nitish0104')]) {
                         sh '''
                         cat Deploy.yaml
                         sed -i "s|11|${BUILD_NUMBER}|g" Deploy.yaml
@@ -81,7 +81,7 @@ pipeline {
                         git config --global user.email "nitishdalvi1@gmail.com"
                         git config --global user.name "nitish0104"
                         echo "git configuration done"
-                        git remote set-url origin https://nitish0104:${GITHUB_TOKEN}@github.com/nitish0104/ToDo-mainfest-repo.git
+                        git remote set-url origin https://nitish0104:${GITHUB_TOKEN}@github.com/nitish0104/GitOps-Mainfest-Repo.git
                         git add Deploy.yaml
                         git commit -m 'Updated the Deploy yaml | Jenkins Pipeline'
                         git push origin HEAD:master
