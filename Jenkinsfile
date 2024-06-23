@@ -6,7 +6,7 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        registryCredential = 'Docker'
+        DOCKER_CREDENTIALS_ID = 'Docker'
         GITHUB_TOKEN = "${Github}"
     }
     
