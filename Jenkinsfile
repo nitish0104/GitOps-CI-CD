@@ -35,15 +35,13 @@ pipeline {
             }
         }
 
-        stage('Push Docker image to dockerHub'){
-           steps{
-                script{
+        stage('Push Docker image to DockerHub') {
+            steps {
+                script {
                     docker.withRegistry('https://index.docker.io/v1/', registryCredential) {
                         sh '''
-                        echo 'Logging into Docker'
-                        docker login
-                        echo 'Push to Docker  Repo'
-                        sudo docker push nitish0104/todo:${BUILD_NUMBER}
+                        echo 'Push to Docker Repo'
+                        docker push nitish0104/todo:${BUILD_NUMBER}
                         '''
                     }
                 }
