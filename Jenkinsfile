@@ -38,10 +38,10 @@ pipeline {
         stage('Push Docker image to dockerHub'){
            steps{
                 script{
-                    docker.withRegistry('', registryCredential) {
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         echo 'Logging into Docker'
-                        sudo docker login
+                        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                         echo 'Push to Docker  Repo'
                         sudo docker push nitish0104/todo:${BUILD_NUMBER}
                         '''
