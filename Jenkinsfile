@@ -41,7 +41,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         echo 'Logging into Docker'
-                        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+                        echo $DOCKER_PASSWORD | sudo docker login -u $DOCKER_USERNAME --password-stdin
                         echo 'Push to Docker  Repo'
                         sudo docker push nitish0104/todo:${BUILD_NUMBER}
                         '''
