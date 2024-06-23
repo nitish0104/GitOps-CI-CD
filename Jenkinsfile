@@ -38,7 +38,7 @@ pipeline {
         stage('Push Docker image to dockerHub'){
            steps{
                 script{
-                    docker.withRegistry('', registryCredential) {
+                    docker.withRegistry('https://index.docker.io/v1/', registryCredential) {
                         sh '''
                         echo 'Logging into Docker'
                         docker login
