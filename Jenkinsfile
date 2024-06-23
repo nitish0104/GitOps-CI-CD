@@ -6,7 +6,7 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        registryCredential = 'Docker'
+        registryCredential = "${Docker}"
         GITHUB_TOKEN = "${Github}"
     }
     
@@ -28,7 +28,7 @@ pipeline {
                 script{
                         sh '''
                         echo 'Buid Docker Image'
-                        docker build -t nitish0104/todo:${BUILD_NUMBER} .
+                        sudo docker build -t nitish0104/todo:${BUILD_NUMBER} .
                         echo 'Docker Build Completed'
                         '''
                     }
