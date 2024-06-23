@@ -6,7 +6,8 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        registryCredential = "${Docker}"
+        DOCKER_CREDENTIALS_ID = 'Docker'
+        IMAGE_NAME = 'nitish0104/todo'
         GITHUB_TOKEN = "${Github}"
     }
     
@@ -28,23 +29,20 @@ pipeline {
                 script{
                         sh '''
                         echo 'Buid Docker Image'
-                        sudo docker build -t nitish0104/todo:${BUILD_NUMBER} .
+                        docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         echo 'Docker Build Completed'
                         '''
                     }
             }
         }
 
-        stage('Push Docker image to dockerHub'){
-           steps{
-                script{
-                    docker.withRegistry('', registryCredential) {
-                        sh '''
-                        echo 'Logging into Docker'
-                        docker login
-                        echo 'Push to Docker  Repo'
-                        docker push nitish0104/todo:${BUILD_NUMBER}
-                        '''
+        stage('Push') {
+            steps {
+                script {
+                    // Log in to Docker Hub
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                        // Push the Docker image to the repository
+                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
                     }
                 }
             }
