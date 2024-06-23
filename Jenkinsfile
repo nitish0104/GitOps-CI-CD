@@ -1,6 +1,8 @@
 pipeline {
     
-    agent any 
+    agent {
+        label 'Kubernetes'
+    }
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
