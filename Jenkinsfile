@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // Checkout source code (TODO app) from the repository
-                    git credentialsId: 'Github', 
+                    git credentialsId: 'jenkins-github', 
                         url: 'https://github.com/nitish0104/GitOps-CI-CD.git'
                         branch: 'master'
                 }
@@ -28,19 +28,21 @@ pipeline {
                 script{
                         sh '''
                         echo 'Buid Docker Image'
-                        sudo docker build -t nitish0104/todo:${BUILD_NUMBER} .
+                        docker build -t nitish0104/todo:${BUILD_NUMBER} .
                         echo 'Docker Build Completed'
                         '''
                     }
             }
         }
 
-        stage('Push Docker image to DockerHub') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', registryCredential) {
+        stage('Push Docker image to dockerHub'){
+           steps{
+                script{
+                    docker.withRegistry('', registryCredential) {
                         sh '''
-                        echo 'Push to Docker Repo'
+                        echo 'Logging into Docker'
+                        docker login
+                        echo 'Push to Docker  Repo'
                         docker push nitish0104/todo:${BUILD_NUMBER}
                         '''
                     }
@@ -63,7 +65,7 @@ pipeline {
         }
         stage('Checkout K8S manifest SCM'){
             steps {
-                git credentialsId: 'Github', 
+                git credentialsId: 'jenkins-github', 
                 url: 'https://github.com/nitish0104/GitOps-Mainfest-Repo.git',
                 branch: 'master'
             }
