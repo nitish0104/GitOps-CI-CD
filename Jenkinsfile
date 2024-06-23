@@ -41,7 +41,7 @@ pipeline {
                     docker.withRegistry('', registryCredential) {
                         sh '''
                         echo 'Logging into Docker'
-                        sudo docker login
+                        docker login
                         echo 'Push to Docker  Repo'
                         sudo docker push nitish0104/todo:${BUILD_NUMBER}
                         '''
